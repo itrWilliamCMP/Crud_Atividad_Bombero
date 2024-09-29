@@ -1,0 +1,24 @@
+----Crear la tabla---------------------------------------------------------
+CREATE TABLE tbBombero(
+id_bombero VARCHAR2(100),
+nombre_bombero VARCHAR2(100),
+edad_bombero int,
+peso_bombero number,
+correo_bombero VARCHAR2(100)
+);
+
+INSERT INTO tbBombero (nombre_bombero, edad_bombero, peso_bombero, correo_bombero)
+VALUES ('Juan Pérez', 30, 75.5, 'juan.perez@ejemplo.com');
+
+
+Select * from tbBombero;
+
+COMMIT;
+----Crear la secuencia----------------------------------------------------------------------
+CREATE SEQUENCE Bomberos_seq START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER TrigBomberos
+BEFORE INSERT ON tbBombero
+FOR EACH ROW
+BEGIN
+    SELECT Bomberos_seq.NEXTVAL INTO :NEW.id_bombero FROM dual;
+END;
